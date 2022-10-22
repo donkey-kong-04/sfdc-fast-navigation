@@ -145,7 +145,8 @@ function handle_object(e, newTab) {
 }
 
 function triggerTheLink(classicLink, lightningLink, newTab) {
-	chrome.tabs.getSelected(null, function(tab) {
+	chrome.tabs.query({active:true,lastFocusedWindow:true}, function(tabs) {
+		var tab = tabs[0];
 		var splitted_url = tab.url.split('/');
 		
 		var base_url = splitted_url[2];
@@ -200,12 +201,12 @@ function handle(e, newTab) {
 function searchBar() {
 	var texte = document.getElementById('searchbar').value.toLowerCase();
 	
-	console.log('Text:' + texte);
+	//console.log('Text:' + texte);
 	if(texte.length >= 3) {
 		var links = document.querySelectorAll(".link");
 		for (var i = 0; i < links.length; i++) {
 			var theContent = links[i].textContent.toLowerCase();
-			
+			console.log(theContent);
 			if(theContent.indexOf(texte) != -1) {
 				links[i].closest('tr').classList.remove('hideme');
 			} else {

@@ -23,7 +23,7 @@ function tpl_link_line_template(label, icateg, ilink, alwaysshow) {
 
 
 function tpl_link_line(label, icateg, ilink) {
-	return tpl_link_line_template(categ, label, icateg, ilink, false);
+	return tpl_link_line_template(label, icateg, ilink, false);
 }
 
 function tpl_card_open(label) {

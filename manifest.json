@@ -1,9 +1,9 @@
 {
-	"name": "Go Faster (6.0)",
-	"version": "6.0",
+	"name": "Go Faster (7.0)",
+	"version": "7.0",
 	"description": "Navigate fast in SalesForce",
-	"manifest_version": 2,
-	"browser_action": {
+	"manifest_version": 3,
+	"action": {
 		"default_popup": "popup.html",
 		"default_icon": {
 			"16": "imgs/logo-16.png",
