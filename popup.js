@@ -39,13 +39,14 @@ for(var i=0; i<data.categories.length; i++) {
 	
 	for(var j=0; j<categ.ls.length; j++) {
 		var lk = categ.ls[j];
+		console.log(lk);
 		html += tpl_link_line(lk.n, i, j);
 	}
 	html += tpl_card_close();
 	
 }
 
-console.log(html);
+//console.log(html);
 
 
 
@@ -99,7 +100,7 @@ function handle_object(e, newTab) {
 		o = data.customMetadata[object_index];
 	}
 	
-	console.log(o);
+	//console.log(o);
 	let theClassicLink = '';
 	let theLightningLink = '';
 	
@@ -150,7 +151,7 @@ function triggerTheLink(classicLink, lightningLink, newTab) {
 		var splitted_url = tab.url.split('/');
 		
 		var base_url = splitted_url[2];
-		console.log('Base URL :' + base_url);
+		//console.log('Base URL :' + base_url);
 		
 		var isLightning = (base_url.indexOf(".force.com") != -1);
 		
@@ -163,7 +164,7 @@ function triggerTheLink(classicLink, lightningLink, newTab) {
 			newUrl = classicLink + lightningLink;
 		}
 		
-		console.log(newUrl);
+		//console.log(newUrl);
 		
 		var fullURL = (newUrl.startsWith('http') ? newUrl : 'https://' + base_url + newUrl);
 		if(newTab) {
@@ -178,20 +179,20 @@ function handle(e, newTab) {
 	var icateg = e.getAttribute("data-icateg");
 	let categ = null;
 	
-	console.log('categ & index');
-	console.log(icateg);
+	//console.log('categ & index');
+	//console.log(icateg);
 	if(icateg == 'null') {
 		categ = data.quick;
 	} else {
 		categ = data.categories[icateg];
 	}
-	console.log(categ);
+	//console.log(categ);
 	var ilink = e.getAttribute("data-ilink");
 	
-	console.log(ilink);
+	//console.log(ilink);
 	
 	let l = categ.ls[ilink];
-	console.log(l);
+	//console.log(l);
 	classic_url = categ.c.replace('::1', (l.c == null || l.c == ''? l.l : l.c));
 	lightning_url = categ.l.replace('::1', (l.l == null || l.l == '' ? l.c : l.l));
 	
@@ -206,7 +207,7 @@ function searchBar() {
 		var links = document.querySelectorAll(".link");
 		for (var i = 0; i < links.length; i++) {
 			var theContent = links[i].textContent.toLowerCase();
-			console.log(theContent);
+			//console.log(theContent);
 			if(theContent.indexOf(texte) != -1) {
 				links[i].closest('tr').classList.remove('hideme');
 			} else {
