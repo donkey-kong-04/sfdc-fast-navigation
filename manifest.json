@@ -12,5 +12,5 @@
 			"128": "imgs/logo-128.png"
 		}
     },
-	"permissions" : ["tabs"]
+	"permissions" : ["tabs", "storage"]
 }

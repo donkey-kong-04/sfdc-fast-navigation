@@ -1,8 +1,12 @@
 
 var html = '';
-
+var profileId = null;
 var quick = data.quick;
 	
+	chrome.storage.local.set({ivk_profile_id: null, ivk_profile_name: null}, function() {
+			
+		});
+		
 html += tpl_card_open(quick.n);
 
 for(var j=0; j<quick.ls.length; j++) {
@@ -39,8 +43,12 @@ for(var i=0; i<data.categories.length; i++) {
 	
 	for(var j=0; j<categ.ls.length; j++) {
 		var lk = categ.ls[j];
-		console.log(lk);
-		html += tpl_link_line(lk.n, i, j);
+		//console.log(lk);
+		if(categ.n === "Profiles") {
+			html += tpl_profile_line(i, j, lk.n);
+		} else {
+			html += tpl_link_line(lk.n, i, j);
+		}
 	}
 	html += tpl_card_close();
 	
@@ -53,7 +61,10 @@ for(var i=0; i<data.categories.length; i++) {
 document.getElementById("content").innerHTML = html;
 
 
-
+function setTextProfileSelected(id, name) {
+	profileId = id;
+	document.getElementById("profileSelected").innerHTML = "Profile selected: " + (id == null ? "None" : name + " (" + id + ")");
+}
 function loadEvents() {
 	var objects_links = document.querySelectorAll("button");
 	for (var i = 0; i < objects_links.length; i++) {
@@ -67,6 +78,11 @@ function loadEvents() {
 	}
 	document.getElementById('searchbar').addEventListener('input', searchBar, false);
 	document.getElementById('searchbar').focus();
+	
+	chrome.storage.local.get(['ivk_profile_id', 'ivk_profile_name'], function(result) {
+	  
+	  setTextProfileSelected(result.ivk_profile_id, result.ivk_profile_name);
+	});
 }
 var handle_right_click = function(e) {
 	e.preventDefault();
@@ -98,6 +114,17 @@ function handle_object(e, newTab) {
 		o = data.customSettings[object_index];
 	} else if(object_type == 'cm') {
 		o = data.customMetadata[object_index];
+	} else if(object_type == "profile") {
+		let icateg = e.closest('td').getAttribute('data-icateg');
+		
+		let theProfile = data.categories[icateg].ls[object_index];
+		
+		let pName = theProfile.n;
+		let pId = theProfile.c;
+		chrome.storage.local.set({ivk_profile_id: pId, ivk_profile_name: pName}, function() {
+			setTextProfileSelected(pId, pName);
+		});
+		return;
 	}
 	
 	//console.log(o);
@@ -126,7 +153,11 @@ function handle_object(e, newTab) {
 			theLightningLink = '/lightning/setup/ObjectManager/' + o.i + '/view';
 			theClassicLink = '/' + o.i + '?setupid=CustomObjects';
 		}
-	} 
+	} else if(link_type == "p") {
+
+		theClassicLink = "/" + profileId + "?s=ObjectsAndTabs&o=" + o.i;
+		theLightningLink = "/lightning/setup/EnhancedProfiles/page?address=%2F" + profileId +"%3Fs%3DObjectsAndTabs%26o%3D" + o.i;
+	}
 	//DATA LINK
 	else { 
 		if(object_type == 'cm') {
@@ -142,12 +173,14 @@ function handle_object(e, newTab) {
 		
 	}
 	
+	
 	triggerTheLink(theClassicLink, theLightningLink, newTab);
 }
 
 function triggerTheLink(classicLink, lightningLink, newTab) {
-	chrome.tabs.query({active:true,lastFocusedWindow:true}, function(tabs) {
+	chrome.tabs.query({active:true,currentWindow:true}, function(tabs) {
 		var tab = tabs[0];
+		console.log(tab);
 		var splitted_url = tab.url.split('/');
 		
 		var base_url = splitted_url[2];

@@ -5,6 +5,7 @@ function tpl_object_line(index, type, label, hasSharing) {
 		<td data-index="${index}" data-type="${type}">
 			<span class="link">${label}</span>
 			<span style="float:right">
+				<button data-type="p">P</button>
 				<button>Data</button>
 				<button data-type="c">Config</button>
 				${str_hassharing}
@@ -13,6 +14,21 @@ function tpl_object_line(index, type, label, hasSharing) {
 	</tr>
 	`;
 }
+
+function tpl_profile_line(icateg, ilink, label) {
+	
+	return `
+	<tr class="hideme">
+		<td data-index="${ilink}" data-icateg="${icateg}" data-type="profile">
+			<span class="link redirect" data-icateg="${icateg}" data-ilink="${ilink}">${label}</span>
+			<span style="float:right">
+				<button>Select</button>
+			</span>
+		</td>
+	</tr>
+	`;
+}
+
 function tpl_link_line_template(label, icateg, ilink, alwaysshow) {
 	let str_alwayshow = (alwaysshow === true ? '' : 'hideme');
 	return `
