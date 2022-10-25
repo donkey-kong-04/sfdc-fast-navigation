@@ -2,10 +2,6 @@
 var html = '';
 var profileId = null;
 var quick = data.quick;
-	
-	chrome.storage.local.set({ivk_profile_id: null, ivk_profile_name: null}, function() {
-			
-		});
 		
 html += tpl_card_open(quick.n);
 
