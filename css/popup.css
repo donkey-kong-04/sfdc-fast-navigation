@@ -43,7 +43,7 @@ button {
 	border:none;
 	margin-left:2px;
 	background-color:rgb(45,49,52);
-	border: 1px solid rgb(255,215,0);/*rgb(11,92,171);*/
+	border: 1px solid rgb(9,154,214);/*rgb(11,92,171);*/
 	color: #A9A9A9;
 }
 .card-header {
@@ -52,7 +52,7 @@ button {
 	border-left: none;
 	border-right: none;
 	background-color: rgb(45,49,52);
-	color: rgb(255,215,0);/*rgb(11,92,171);*/
+	color: rgb(9,154,214);/*rgb(11,92,171);*/
 	font-weight:bold;
 }
 .card-body {

@@ -235,22 +235,25 @@ function searchBar() {
 	if(texte.length >= 3) {
 		var links = document.querySelectorAll(".link");
 		for (var i = 0; i < links.length; i++) {
+			var closestTR = links[i].closest('tr');
+
 			var theContent = links[i].textContent.toLowerCase();
 			//console.log(theContent);
 			if(theContent.indexOf(texte) != -1) {
-				links[i].closest('tr').classList.remove('hideme');
+				closestTR.classList.remove('hideme');
 			} else {
-				if(links[i].classList.contains('alwaysshow') == false) {
+				if(closestTR.classList.contains('alwaysshow') == false) {
 					
-					links[i].closest('tr').classList.add('hideme');
+					closestTR.classList.add('hideme');
 				}
 			}
 		}
 	} else {
 		var links = document.querySelectorAll(".link");
 		for (var i = 0; i < links.length; i++) {
-			if(links[i].classList.contains('alwaysshow') == false) {
-				links[i].closest('tr').classList.add('hideme');
+			var closestTR = links[i].closest('tr');
+			if(closestTR.classList.contains('alwaysshow') == false) {
+				closestTR.classList.add('hideme');
 			}
 		}
 	}

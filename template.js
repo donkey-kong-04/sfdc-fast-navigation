@@ -1,11 +1,12 @@
 function tpl_object_line(index, type, label, hasSharing) {
 	let str_hassharing = (hasSharing === true ? '<button data-type="s">Sharing</button>': '');
+	let str_profile = (type == 'o' ? '<button data-type="p">P</button>' : '');
 	return `
 	<tr class="hideme">
 		<td data-index="${index}" data-type="${type}">
 			<span class="link">${label}</span>
 			<span style="float:right">
-				<button data-type="p">P</button>
+				${str_profile}
 				<button>Data</button>
 				<button data-type="c">Config</button>
 				${str_hassharing}
@@ -30,7 +31,7 @@ function tpl_profile_line(icateg, ilink, label) {
 }
 
 function tpl_link_line_template(label, icateg, ilink, alwaysshow) {
-	let str_alwayshow = (alwaysshow === true ? '' : 'hideme');
+	let str_alwayshow = (alwaysshow === true ? 'alwaysshow' : 'hideme');
 	return `
 	<tr class="${str_alwayshow}">
 		<td>
