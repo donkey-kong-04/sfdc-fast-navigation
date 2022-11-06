@@ -1,60 +1,89 @@
 
-var html = '';
+
 var profileId = null;
-var quick = data.quick;
-		
-html += tpl_card_open(quick.n);
+var data = null;
 
-for(var j=0; j<quick.ls.length; j++) {
-	var lk = quick.ls[j];
-	html += tpl_link_line_template(lk.n, null, j, true);
-}
-html += tpl_card_close();
-//Objects
-html += tpl_card_open('Objects');
-for(var i=0; i<data.objects.length; i++) {
-	html +=  tpl_object_line(i, 'o', data.objects[i].l, true);
-}
-html += tpl_card_close();
+popupOpen();
+function popupOpen() {
+	chrome.tabs.query({active:true,currentWindow:true}, function(tabs) {
+		let tab = tabs[0];
 
-//Custom settings
-html += tpl_card_open('Custom Settings');
-for(var i=0; i<data.customSettings.length; i++) {
-	html += tpl_object_line(i, 'cs', data.customSettings[i].l, false);
-}
-html += tpl_card_close();
-
-//Custom metadata
-html += tpl_card_open('Custom Metadata');
-for(var i=0; i<data.customMetadata.length; i++) {
-	html += tpl_object_line(i, 'cm', data.customMetadata[i].l, false);
-}
-html += tpl_card_close();
-
-//Other links
-for(var i=0; i<data.categories.length; i++) {
-	var categ = data.categories[i];
-	
-	html += tpl_card_open(categ.n);
-	
-	for(var j=0; j<categ.ls.length; j++) {
-		var lk = categ.ls[j];
-		//console.log(lk);
-		if(categ.n === "Profiles") {
-			html += tpl_profile_line(i, j, lk.n);
+		if(tab.url.indexOf('shsb1full') != -1) {
+			console.log('Loading shsb1full');
+			data = shsb1full;
+		} else if(tab.url.indexOf('eursb6pc') != -1) {
+			console.log('Loading eursb6pc');
+			data = eursb6pc;
+		} else if(tab.url.indexOf('eursb14dev') != -1) {
+			console.log('Loading eursb14dev');
+			data = eursb14dev;
+		} else if(tab.url.indexOf('eursb16dev') != -1) {
+			console.log('Loading eursb16dev');
+			data = eursb16dev;
 		} else {
-			html += tpl_link_line(lk.n, i, j);
+			console.log('Loading eursb9dev');
+			data = eursb9dev;
 		}
+
+		loadHTML();
+	});
+}
+
+function loadHTML() {
+	let html = '';
+	let quick = data.quick;
+
+	html += tpl_card_open(quick.n);
+	
+	for(var j=0; j<quick.ls.length; j++) {
+		var lk = quick.ls[j];
+		html += tpl_link_line_template(lk.n, null, j, true);
 	}
 	html += tpl_card_close();
-	
+	//Objects
+	html += tpl_card_open('Objects');
+	for(var i=0; i<data.objects.length; i++) {
+		html +=  tpl_object_line(i, 'o', data.objects[i].l, true);
+	}
+	html += tpl_card_close();
+
+	//Custom settings
+	html += tpl_card_open('Custom Settings');
+	for(var i=0; i<data.customSettings.length; i++) {
+		html += tpl_object_line(i, 'cs', data.customSettings[i].l, false);
+	}
+	html += tpl_card_close();
+
+	//Custom metadata
+	html += tpl_card_open('Custom Metadata');
+	for(var i=0; i<data.customMetadata.length; i++) {
+		html += tpl_object_line(i, 'cm', data.customMetadata[i].l, false);
+	}
+	html += tpl_card_close();
+
+	//Other links
+	for(var i=0; i<data.categories.length; i++) {
+		var categ = data.categories[i];
+		
+		html += tpl_card_open(categ.n);
+		
+		for(var j=0; j<categ.ls.length; j++) {
+			var lk = categ.ls[j];
+			//console.log(lk);
+			if(categ.n === "Profiles") {
+				html += tpl_profile_line(i, j, lk.n);
+			} else {
+				html += tpl_link_line(lk.n, i, j);
+			}
+		}
+		html += tpl_card_close();
+		
+	}
+
+	document.getElementById("content").innerHTML = html;
+	loadEvents();
 }
 
-//console.log(html);
-
-
-
-document.getElementById("content").innerHTML = html;
 
 
 function setTextProfileSelected(id, name) {
@@ -76,8 +105,7 @@ function loadEvents() {
 	document.getElementById('searchbar').focus();
 	
 	chrome.storage.local.get(['ivk_profile_id', 'ivk_profile_name'], function(result) {
-	  
-	  setTextProfileSelected(result.ivk_profile_id, result.ivk_profile_name);
+	  	setTextProfileSelected(result.ivk_profile_id, result.ivk_profile_name);
 	});
 }
 var handle_right_click = function(e) {
@@ -260,4 +288,3 @@ function searchBar() {
 }
 
 
-loadEvents();
