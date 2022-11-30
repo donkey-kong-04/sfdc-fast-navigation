@@ -56,10 +56,10 @@ const templates = new Map([
 		"l" : "/lightning/setup/ApexTriggers/page?address=%2F::1"
 	}],
 	["connected_app", {
-		"c": null,
-		"l" : "/lightning/setup/ConnectedApplication/page?address=/app/mgmt/forceconnectedapps/forceAppDetail.apexp?connectedAppId=::1"
+		"c": "/lightning/setup/ConnectedApplication/page?address=/app/mgmt/forceconnectedapps/forceAppDetail.apexp?connectedAppId=::1",
+		"l" : null
 	}],
-	["user", {
+	["users", {
 		"c": "/::1?noredirect=1&isUserEntityOverride=1",
 		"l" : "/lightning/setup/ManageUsers/page?address=%2F::1%3Fnoredirect%3D1%26isUserEntityOverride%3D1&0.source=alohaHeader"
 	}],
