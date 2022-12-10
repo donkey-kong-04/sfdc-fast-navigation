@@ -21,15 +21,11 @@ const templates = new Map([
 	}],
 	["cs.tab", {
 		"c": "/setup/ui/listCustomSettingsData.apexp?id=::1",
-		"l" : "/one/one.app#/alohaRedirect/setup/ui/listCustomSettingsData.apexp?id=::1"
+		"l" : "/lightning/setup/CustomSettings/page?address=%2Fsetup%2Fui%2FlistCustomSettingsData.apexp%3Fid%3D::1"
 	}],
 	["cs.config", {
 		"c": "/setup/ui/viewCustomSettings.apexp?setupid=CustomSettings&id=::1",
 		"l" : "/one/one.app#/alohaRedirect/::1?setupid=CustomSettings"
-	}],
-	["cm.tab", {
-		"c": "/::1",
-		"l" : null
 	}],
 	["cm.tab", {
 		"c": "/::1?setupid=CustomMetadata",
