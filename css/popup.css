@@ -39,22 +39,39 @@ td {
 	background-color:rgb(35,36,42);
 	
 }
+
+
+
 button {
 	border:none;
 	margin-left:2px;
 	background-color:rgb(45,49,52);
-	border: 1px solid rgb(9,154,214);/*rgb(11,92,171);*/
+	
 	color: #A9A9A9;
 }
+button.b-blue {
+	border: 1px solid rgb(9,154,214);
+}
+button.b-red {
+	border: 1px solid red;
+}
+
 .card-header {
 	padding:5 !important;
 	margin:0 !important;
 	border-left: none;
 	border-right: none;
 	background-color: rgb(45,49,52);
-	color: rgb(9,154,214);/*rgb(11,92,171);*/
+	
 	font-weight:bold;
 }
+.c-blue {
+	color: rgb(9,154,214);
+}
+.c-red {
+	color: red;
+}
+
 .card-body {
 	color: #006dcc;
 	font-weight:bold;

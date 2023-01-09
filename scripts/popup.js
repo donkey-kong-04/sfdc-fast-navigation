@@ -1,11 +1,10 @@
 var data = null;
 var links = null;
-
+var color = "red";
 var profileId = null;
 
 popupOpen();
 function popupOpen() {
-	
 	
 	chrome.tabs.query({active:true,currentWindow:true}, function(tabs) {
 		let tab = tabs[0];
@@ -14,6 +13,11 @@ function popupOpen() {
 			console.log('Loading shsb1full');
 			data = shsb1full_categories;
 			links = shsb1full_links;
+		} else if(tab.url.indexOf('eursb9dev') != -1) {
+			console.log('Loading eursb9dev');
+			data = eursb9dev_categories;
+			links = eursb9dev_links;
+			color = "blue"; //ONLY FOR DEV ENV
 		} else if(tab.url.indexOf('eursb6pc') != -1) {
 			console.log('Loading eursb6pc');
 			data = eursb6pc_categories;
@@ -26,6 +30,12 @@ function popupOpen() {
 			console.log('Loading eursb16dev');
 			data = eursb16dev_categories;
 			links = eursb16dev_links;
+			
+		} else if(tab.url.indexOf('eursb15dp') != -1) {
+			console.log('Loading eursb9dev');
+			data = eursb9dev_categories;
+			links = eursb9dev_links;
+			color ="blue"; //ONLYFOR DEV ENV
 		} else {
 			console.log('Loading eursb9dev');
 			data = eursb9dev_categories;
@@ -37,7 +47,7 @@ function popupOpen() {
 }
 
 function loadHTML() {
-	let html = new_full_template(data)
+	let html = new_full_template(data, color)
 	document.getElementById("content").innerHTML = html;
 	loadEvents();
 }
